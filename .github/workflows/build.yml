@@ -3,6 +3,9 @@ name: Build AVR Toolchain
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -67,8 +70,12 @@ jobs:
           cd $HOME
           tar -cJf avr-toolchain.tar.xz avr-toolchain
 
+      - name: Delete old release if exists
+        run: |
+          gh release delete v1.0 --yes --repo ${{ github.repository }} 2>/dev/null || true
+
       - name: Upload to Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: ~/avr-toolchain.tar.xz
           tag_name: v1.0
@@ -76,4 +83,6 @@ jobs:
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
 
