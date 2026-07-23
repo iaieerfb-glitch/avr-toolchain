@@ -71,7 +71,7 @@ jobs:
       - name: Package
         run: |
           cd $HOME
-          XZ_OPT="-9 -e" tar -cJf avr-toolchain.tar.xz avr-toolchain
+          tar -cf avr-toolchain.tar avr-toolchain
 
       - name: Delete old release if exists
         run: |
@@ -80,11 +80,10 @@ jobs:
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ~/avr-toolchain.tar.xz
+          files: ~/avr-toolchain.tar
           tag_name: v1.0
           name: AVR Toolchain
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
