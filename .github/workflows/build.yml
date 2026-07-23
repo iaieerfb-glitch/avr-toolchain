@@ -1,3 +1,4 @@
+
 name: Build AVR Toolchain
 
 on:
@@ -49,6 +50,7 @@ jobs:
 
       - name: Build GCC
         run: |
+          find $HOME/avr-toolchain -name "*.a" -exec arm-linux-gnueabi-ranlib {} \; 2>/dev/null || true
           mkdir build-gcc
           cd build-gcc
           PATH=$HOME/avr-toolchain/bin:$PATH \
@@ -90,8 +92,6 @@ jobs:
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
 
 
 
