@@ -38,6 +38,7 @@ jobs:
             --disable-werror
           make -j$(nproc)
           make install
+          arm-linux-gnueabi-ranlib $HOME/avr-toolchain/lib/*.a 2>/dev/null || true
 
       - name: Download GCC
         run: |
@@ -69,6 +70,7 @@ jobs:
             --with-isl=no
           make -j$(nproc)
           make install
+          arm-linux-gnueabi-ranlib $HOME/avr-toolchain/lib/*.a 2>/dev/null || true
 
       - name: Package
         run: |
