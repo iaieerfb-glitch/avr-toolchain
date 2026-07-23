@@ -68,7 +68,7 @@ jobs:
       - name: Package
         run: |
           cd $HOME
-          tar -cJf avr-toolchain.tar.xz avr-toolchain
+          XZ_OPT="-9 -e" tar -cJf avr-toolchain.tar.xz avr-toolchain
 
       - name: Delete old release if exists
         run: |
@@ -83,6 +83,7 @@ jobs:
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
 
