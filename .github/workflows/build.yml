@@ -18,7 +18,8 @@ jobs:
             git wget curl make gcc g++ \
             flex bison texinfo \
             libgmp-dev libmpfr-dev libmpc-dev \
-            libisl-dev zlib1g-dev
+            libisl-dev zlib1g-dev \
+            gcc-arm-linux-gnueabihf
 
       - name: Download binutils
         run: |
@@ -31,6 +32,7 @@ jobs:
           cd build-binutils
           ../binutils-2.43/configure \
             --target=avr \
+            --host=arm-linux-gnueabihf \
             --prefix=$HOME/avr-toolchain \
             --disable-nls \
             --disable-werror
@@ -51,6 +53,7 @@ jobs:
           PATH=$HOME/avr-toolchain/bin:$PATH \
           ../gcc-14.2.0/configure \
             --target=avr \
+            --host=arm-linux-gnueabihf \
             --prefix=$HOME/avr-toolchain \
             --enable-languages=c,c++ \
             --disable-nls \
@@ -83,7 +86,5 @@ jobs:
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
 
 
