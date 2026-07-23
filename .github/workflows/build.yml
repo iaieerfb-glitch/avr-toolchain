@@ -1,4 +1,3 @@
-
 name: Build AVR Toolchain
 
 on:
@@ -70,7 +69,7 @@ jobs:
             --disable-isl-version-check \
             --with-isl=no
           make -j$(nproc) || true
-          find . -name "*.a" -exec arm-linux-gnueabi-ranlib {} \;
+          find . -name "*.a" -exec arm-linux-gnueabi-ranlib {} \; 2>/dev/null
           make -j$(nproc)
           make install
           arm-linux-gnueabi-ranlib $HOME/avr-toolchain/lib/*.a 2>/dev/null || true
@@ -93,5 +92,6 @@ jobs:
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
