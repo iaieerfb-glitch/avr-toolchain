@@ -64,7 +64,9 @@ jobs:
             --disable-threads \
             --with-dwarf2 \
             --with-gnu-as \
-            --with-gnu-ld
+            --with-gnu-ld \
+            --disable-isl-version-check \
+            --with-isl=no
           make -j$(nproc)
           make install
 
@@ -86,8 +88,6 @@ jobs:
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
 
 
 
