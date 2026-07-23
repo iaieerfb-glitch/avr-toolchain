@@ -67,7 +67,8 @@ jobs:
             --with-gnu-as \
             --with-gnu-ld \
             --disable-isl-version-check \
-            --with-isl=no
+            --with-isl=no \
+            --disable-lto
           make -j$(nproc) || true
           find . -name "*.a" -exec arm-linux-gnueabi-ranlib {} \; 2>/dev/null
           make -j$(nproc)
