@@ -50,7 +50,6 @@ jobs:
 
       - name: Build GCC
         run: |
-          find $HOME/avr-toolchain -name "*.a" -exec arm-linux-gnueabi-ranlib {} \; 2>/dev/null || true
           mkdir build-gcc
           cd build-gcc
           PATH=$HOME/avr-toolchain/bin:$PATH \
@@ -70,6 +69,8 @@ jobs:
             --with-gnu-ld \
             --disable-isl-version-check \
             --with-isl=no
+          make -j$(nproc) || true
+          find . -name "*.a" -exec arm-linux-gnueabi-ranlib {} \;
           make -j$(nproc)
           make install
           arm-linux-gnueabi-ranlib $HOME/avr-toolchain/lib/*.a 2>/dev/null || true
@@ -92,6 +93,5 @@ jobs:
           body: AVR Toolchain for Termux ARM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
 
